@@ -48,10 +48,26 @@ It includes steps for creating and managing database instances, ensuring persist
     -v pg-14.2-data:/var/lib/postgresql/data
     -d postgres:14.2
     ```
+    or
+    ```shell
+    host$ docker container run
+    --restart=always
+    --name pg-14.2
+    -p 5432:5432
+    -e POSTGRES_PASSWORD="Test123456!!!!!"
+    -v pg-14.2-data:/var/lib/postgresql/data
+    -d postgres:14.2
+    ```
     -->
 
     ```shell
-    host$ docker container run --name pg-14.2 --rm -p 5432:5432 -e POSTGRES_PASSWORD="Test123456!!!!!" -v pg-14.2-data:/var/lib/postgresql/data -d postgres:14.2
+    host$ docker container run --name pg-14.2 --rm -p 5432:5432 -e POSTGRES_PASSWORD="Test123456!!!!!" -v pg-14.2-data:/var/lib/postgresql/data --restart=always -d postgres:14.2
+    ```
+
+    or
+
+    ```shell
+    host$ docker container run --name pg-14.2 --restart=always -p 5432:5432 -e POSTGRES_PASSWORD="Test123456!!!!!" -v pg-14.2-data:/var/lib/postgresql/data -d postgres:14.2
     ```
 
 - Check pg container is running properly
@@ -183,10 +199,29 @@ It includes steps for creating and managing database instances, ensuring persist
     -v mssql-2019-data:/var/opt/mssql
     -d mcr.microsoft.com/mssql/server:2019-latest
     ```
+    or
+    ```shell
+    host$ docker container run
+    --restart=always
+    --name mssql-2019
+    --hostname mssql-2019
+    --shm-size 2g
+    -p 1433:1433
+    -e "ACCEPT_EULA=Y"
+    -e "MSSQL_SA_PASSWORD=Test123456!!!!!"
+    -v mssql-2019-data:/var/opt/mssql
+    -d mcr.microsoft.com/mssql/server:2019-latest
+    ```  
     -->
 
     ```shell
     host$ docker container run --name mssql-2019 --hostname mssql-2019 --rm -p 1433:1433 -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Test123456!!!!!" --shm-size 2g -v mssql-2019-data:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2019-latest
+    ```
+
+    or
+
+    ```shell
+    host$ docker container run --name mssql-2019 --hostname mssql-2019 --restart=always -p 1433:1433 -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Test123456!!!!!" --shm-size 2g -v mssql-2019-data:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2019-latest
     ```
 
 - Check MS SQL Server container is running properly
@@ -377,10 +412,31 @@ It includes steps for creating and managing database instances, ensuring persist
     -v oracle-19c-data:/opt/oracle/oradata
     -d oracle/database:19.3.0-se2
     ```
+    or
+    ```shell
+    host$ docker container run
+    --restart=always
+    --name oracle-19c-std
+    -p 15210:1521 -p 55000:5500
+    -e ORACLE_SID=ORCL19cCDB
+    -e ORACLE_PDB=url_service_demo
+    -e ORACLE_PWD="Test123456!!!!!"
+    -e INIT_SGA_SIZE=4096
+    -e INIT_PGA_SIZE=1024
+    -e ORACLE_EDITION=standard
+    -v oracle-19c-data:/opt/oracle/oradata
+    -d oracle/database:19.3.0-se2
+    ```
     -->
 
     ```shell
     host$ docker container run --name oracle-19c-std --rm -p 15210:1521 -p 55000:5500 -e ORACLE_SID=ORCL19cCDB -e ORACLE_PWD="Test123456!!!!!" -e INIT_SGA_SIZE=4096 -e INIT_PGA_SIZE=1024 -v oracle-19c-data:/opt/oracle/oradata -d oracle/database:19.3.0-se2
+    ```
+
+    or
+
+    ```shell
+    host$ docker container run --name oracle-19c-std --restart=always -p 15210:1521 -p 55000:5500 -e ORACLE_SID=ORCL19cCDB -e ORACLE_PWD="Test123456!!!!!" -e INIT_SGA_SIZE=4096 -e INIT_PGA_SIZE=1024 -v oracle-19c-data:/opt/oracle/oradata -d oracle/database:19.3.0-se2
     ```
 
     <!-- Test oracle-19c-std-wo-pdb
