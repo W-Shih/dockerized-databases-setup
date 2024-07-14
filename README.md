@@ -10,18 +10,18 @@ This repository provides guides and scripts to set up PostgreSQL, MS-SQL, and Or
 
 It includes steps for creating and managing database instances, ensuring persistence with Docker volumes, and configuring database users and schemas. Detailed commands and instructions are provided for smooth database initialization and management.
 
-# Contents
+# Contents [[↑](#dockerized-databases-setup)]
 
 - [Dockerized databases setup](#dockerized-databases-setup)
-- [Contents](#contents)
-  - [Set up Databases](#set-up-databases)
-    - [PostgreSQL 14.2 with docker container and volume](#postgresql-142-with-docker-container-and-volume)
-    - [MS-SQL 2019 with docker container and volume](#ms-sql-2019-with-docker-container-and-volume)
-    - [Oracle 19c standard with docker container and volume](#oracle-19c-standard-with-docker-container-and-volume)
+- [Contents \[↑\]](#contents-)
+  - [Set up Databases \[↑\]](#set-up-databases-)
+    - [PostgreSQL 14.2 with docker container and volume \[↑\]](#postgresql-142-with-docker-container-and-volume-)
+    - [MS-SQL 2019 with docker container and volume \[↑\]](#ms-sql-2019-with-docker-container-and-volume-)
+    - [Oracle 19c standard with docker container and volume \[↑\]](#oracle-19c-standard-with-docker-container-and-volume-)
 
-## Set up Databases
+## Set up Databases [[↑](#dockerized-databases-setup)]
 
-### PostgreSQL 14.2 with docker container and volume
+### PostgreSQL 14.2 with docker container and volume [[↑](#dockerized-databases-setup)]
 
 - Create a volume for PostgreSQL
   
@@ -175,7 +175,7 @@ It includes steps for creating and managing database instances, ensuring persist
   1. [Docker Hub - Postgres](https://hub.docker.com/_/postgres)
   2. [Simulate CREATE DATABASE IF NOT EXISTS for PostgreSQL](https://stackoverflow.com/questions/18389124/simulate-create-database-if-not-exists-for-postgresql)
 
-### MS-SQL 2019 with docker container and volume
+### MS-SQL 2019 with docker container and volume [[↑](#dockerized-databases-setup)]
 
 - Create a volume for MS SQL Server
   
@@ -361,7 +361,7 @@ It includes steps for creating and managing database instances, ensuring persist
   5. [Does MSSQL support an equivalent form of the MySQL statement `CREATE DATABASE IF NOT EXISTS {db}`](https://stackoverflow.com/questions/64103200/does-mssql-support-an-equivalent-form-of-the-mysql-statement-create-database-if)
   6. [Check if a user exists in a SQL Server database](https://dba.stackexchange.com/questions/125886/check-if-a-user-exists-in-a-sql-server-database)
 
-### Oracle 19c standard with docker container and volume
+### Oracle 19c standard with docker container and volume [[↑](#dockerized-databases-setup)]
 
 - Create a volume for Oracle database
   
