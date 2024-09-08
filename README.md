@@ -24,6 +24,7 @@ It includes steps for creating and managing database instances, ensuring persist
 ### PostgreSQL 14.2 with docker container and volume [[↑](#dockerized-databases-setup)]
 
 - [Docker commands and provisioning scripts for PostgreSQL 14.2](./docs/pg-docker.md)
+- [Setting Up PostgreSQL 14.2 with Docker Compose](./docs/pg-docker-compose.md)
   
 ### MS-SQL 2019 with docker container and volume [[↑](#dockerized-databases-setup)]
 
