@@ -7,6 +7,7 @@
     - [Volume \[↑\]](#volume-)
     - [Container \[↑\]](#container-)
     - [Provisioning \[↑\]](#provisioning-)
+    - [Connect to the PostgreSQL service](#connect-to-the-postgresql-service)
     - [Stop container \[↑\]](#stop-container-)
     - [Reference \[↑\]](#reference-)
 
@@ -14,44 +15,44 @@
 
 - Create a volume for PostgreSQL
   
-    ```shell
-    host$ docker volume create pg-14.2-data
-    ```
+  ```shell
+  host$ docker volume create pg-14.2-data
+  ```
 
 - Make sure the volume has been created
 
-    ```shell
-    host$ docker volume inspect pg-14.2-data
-    host$ docker volume ls
-    ```
+  ```shell
+  host$ docker volume inspect pg-14.2-data
+  host$ docker volume ls
+  ```
 
 ### Container [[↑](#docker-commands-and-provisioning-scripts-for-postgresql-142)]
 
 - Start pg container with the volume
 
-    <!-- For readability
-    one time container:
-      ```shell
-      host$ docker container run
-      --rm
-      --name pg-14.2
-      -p 5432:5432
-      -e POSTGRES_PASSWORD="Test123456!!!!!"
-      -v pg-14.2-data:/var/lib/postgresql/data
-      -d postgres:14.2
-      ```
-    or
-    restart container always:
-      ```shell
-      host$ docker container run
-      --restart=always
-      --name pg-14.2
-      -p 5432:5432
-      -e POSTGRES_PASSWORD="Test123456!!!!!"
-      -v pg-14.2-data:/var/lib/postgresql/data
-      -d postgres:14.2
-      ```
-    -->
+  <!-- For readability
+  one time container:
+    ```shell
+    host$ docker container run
+    --rm
+    --name pg-14.2
+    -p 5432:5432
+    -e POSTGRES_PASSWORD="Test123456!!!!!"
+    -v pg-14.2-data:/var/lib/postgresql/data
+    -d postgres:14.2
+    ```
+  or
+  restart container always:
+    ```shell
+    host$ docker container run
+    --restart=always
+    --name pg-14.2
+    -p 5432:5432
+    -e POSTGRES_PASSWORD="Test123456!!!!!"
+    -v pg-14.2-data:/var/lib/postgresql/data
+    -d postgres:14.2
+    ```
+  -->
 
   - One time container
 
@@ -69,18 +70,18 @@
 
 - Check pg container is running properly
 
-    ```shell
-    host$ docker container ls
-    ```
+  ```shell
+  host$ docker container ls
+  ```
 
 ### Provisioning [[↑](#docker-commands-and-provisioning-scripts-for-postgresql-142)]
 
 - Create a database and an admin user for the service
 
-    ```shell
-    host$ docker exec -it pg-14.2 /bin/bash
-    container# psql -U postgres
-    ```
+  ```shell
+  host$ docker exec -it pg-14.2 /bin/bash
+  container# psql -U postgres
+  ```
 
   - Simple version if the database and the admin user do NOT exist
 
@@ -158,16 +159,29 @@
     grant all privileges on database url_service_demo to url_service_dba;
     ```
 
+### Connect to the PostgreSQL service
+
+- Connect to the PostgreSQL service using the following command.
+
+  ```shell
+  host$ docker container exec -it pg-14.2 psql -h localhost -p 5432 -U url_service_dba -d url_service_demo
+  ```
+  
 ### Stop container [[↑](#docker-commands-and-provisioning-scripts-for-postgresql-142)]
 
 - Stop container
 
-    ```shell
-    host$ docker stop pg-14.2
-    ```
+  ```shell
+  host$ docker stop pg-14.2
+  ```
 
 ### Reference [[↑](#docker-commands-and-provisioning-scripts-for-postgresql-142)]
 
 - Reference:
-  1. [Docker Hub - Postgres](https://hub.docker.com/_/postgres)
-  2. [Simulate CREATE DATABASE IF NOT EXISTS for PostgreSQL](https://stackoverflow.com/questions/18389124/simulate-create-database-if-not-exists-for-postgresql)
+  - [Docker Hub - Postgres](https://hub.docker.com/_/postgres)
+    - start a `postgres` instance
+    - `POSTGRES_PASSWORD`
+    - `PGDATA`
+    - `Docker Secrets`
+    - `Initialization scripts`
+  - [Simulate CREATE DATABASE IF NOT EXISTS for PostgreSQL](https://stackoverflow.com/questions/18389124/simulate-create-database-if-not-exists-for-postgresql)
