@@ -3,18 +3,18 @@
 This guide provides steps to set up a PostgreSQL 14.2 database using Docker Compose. It includes a
 `docker-compose.yml` file to define the PostgreSQL service and a provisioning script to create a database and user.
 
-## Contents
+## Contents [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
 - [Setting Up PostgreSQL 14.2 with Docker Compose](#setting-up-postgresql-142-with-docker-compose)
-  - [Contents](#contents)
-    - [`init-pg-user-db.sql`](#init-pg-user-dbsql)
-    - [`docker-compose.yml`](#docker-composeyml)
-    - [Start the PostgreSQL service using Docker Compose](#start-the-postgresql-service-using-docker-compose)
-    - [Connect to the PostgreSQL service](#connect-to-the-postgresql-service)
-    - [Useful Docker Compose Commands](#useful-docker-compose-commands)
-    - [References](#references)
+  - [Contents \[↑\]](#contents-)
+    - [`init-pg-user-db.sql` \[↑\]](#init-pg-user-dbsql-)
+    - [`docker-compose.yml` \[↑\]](#docker-composeyml-)
+    - [Start the PostgreSQL service using Docker Compose \[↑\]](#start-the-postgresql-service-using-docker-compose-)
+    - [Connect to the PostgreSQL service \[↑\]](#connect-to-the-postgresql-service-)
+    - [Useful Docker Compose Commands \[↑\]](#useful-docker-compose-commands-)
+    - [References \[↑\]](#references-)
 
-### `init-pg-user-db.sql`
+### `init-pg-user-db.sql` [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
 - Create a directory for the PostgreSQL service.
 
@@ -63,7 +63,7 @@ This guide provides steps to set up a PostgreSQL 14.2 database using Docker Comp
 
   This will re-run the SQL scripts and re-initialize the user and database.
 
-### `docker-compose.yml`
+### `docker-compose.yml` [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
 - Create a `docker-compose.yml` file, and add the following content.
 
@@ -74,6 +74,19 @@ This guide provides steps to set up a PostgreSQL 14.2 database using Docker Comp
     postgres:
       image: postgres:14.2
       environment:
+        # POSTGRES_PASSWORD is the password for the default `postgres` user, this env variable is required to run 
+        # the PostgreSQL container.
+        # 
+        # Note: 
+        #   It is not recommended to set the password this way because it is visible to everyone who has access to 
+        #   the `docker-compose.yml` file. 
+        #   It is not recommended to use a `.env` file to store the password and use it in the `docker-compose.yml` 
+        #   file either because this env variable will be set in the container and can be seen by running the command 
+        #     `docker inspect <container_id/container_name>` or 
+        #     `docker exec -it <container_id/container_name> env`.
+        #
+        # TODO:
+        #   It is recommended to use the docker secrets or docker config to store the password securely.
         POSTGRES_PASSWORD: "Test123456!!!!!"
       ports:
         - "5432:5432"
@@ -86,7 +99,7 @@ This guide provides steps to set up a PostgreSQL 14.2 database using Docker Comp
     pg-14.2-data:
   ```
 
-### Start the PostgreSQL service using Docker Compose
+### Start the PostgreSQL service using Docker Compose [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
 - Start the PostgreSQL service using Docker Compose.
 
@@ -100,15 +113,13 @@ This guide provides steps to set up a PostgreSQL 14.2 database using Docker Comp
   host$ docker container ls
   ```
 
-### Connect to the PostgreSQL service
+### Connect to the PostgreSQL service [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
-- Connect to the PostgreSQL service using the following command.
+- Please refer to the `Connect to the PostgreSQL service` section in the
+  [Docker commands and provisioning scripts for PostgreSQL 14.2](./pg-docker-commands.md#connect-to-the-postgresql-service)
+  to connect to the PostgreSQL service.
 
-  ```shell
-  host$ docker container exec -it <container_id/container_name> psql -h localhost -p 5432 -U url_service_dba -d url_service_demo
-  ```
-
-### Useful Docker Compose Commands
+### Useful Docker Compose Commands [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
 - Stop the PostgreSQL service using Docker Compose.
 
@@ -134,7 +145,7 @@ This guide provides steps to set up a PostgreSQL 14.2 database using Docker Comp
   host$ docker-compose --help
   ```
 
-### References
+### References [[↑](#setting-up-postgresql-142-with-docker-compose)]
 
 - Reference:
   - [Docker Hub - Postgres](https://hub.docker.com/_/postgres)

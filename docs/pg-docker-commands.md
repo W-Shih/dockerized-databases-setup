@@ -4,14 +4,17 @@
 
 - [Docker commands and provisioning scripts for PostgreSQL 14.2](#docker-commands-and-provisioning-scripts-for-postgresql-142)
   - [Contents \[↑\]](#contents-)
-    - [Volume \[↑\]](#volume-)
+    - [\[Optional\] Volume \[↑\]](#optional-volume-)
     - [Container \[↑\]](#container-)
     - [Provisioning \[↑\]](#provisioning-)
     - [Connect to the PostgreSQL service](#connect-to-the-postgresql-service)
     - [Stop container \[↑\]](#stop-container-)
     - [Reference \[↑\]](#reference-)
 
-### Volume [[↑](#docker-commands-and-provisioning-scripts-for-postgresql-142)]
+### [Optional] Volume [[↑](#docker-commands-and-provisioning-scripts-for-postgresql-142)]
+
+The reason why this step is optional is that the volume can be created when using `docker run` command with the `-v`
+option. `docker run` command will create a volume if it does not exist.
 
 - Create a volume for PostgreSQL
   
@@ -67,6 +70,19 @@
     ```shell
     host$ docker container run --name pg-14.2 --restart=always -p 5432:5432 -e POSTGRES_PASSWORD="Test123456!!!!!" -v pg-14.2-data:/var/lib/postgresql/data -d postgres:14.2
     ```
+
+  - `POSTGRES_PASSWORD`
+    - `POSTGRES_PASSWORD` is the password for the default `postgres` user, this env variable is required to run
+    the PostgreSQL container.  
+    - Note:
+      - It is not recommended to set the password this way because it is visible to everyone who can see the
+      `docker run` command.
+      - It is not recommended to use a `.env` file to store the password and use it in the `docker run` command
+      either because this env variable will be set in the container and can be seen by running the command:
+        - `docker inspect <container_id/container_name>` or
+        - `docker exec -it <container_id/container_name> env`.  
+    - TODO:
+      - It is recommended to use the docker secrets or docker config to store the password securely.
 
 - Check pg container is running properly
 
